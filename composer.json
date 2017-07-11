@@ -1,7 +1,16 @@
 {
     "name": "xani/bizineh-rud",
     "description": "telegram SDK.",
-    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "mojtaba khani",
+            "email": "mkhani.p@gmail.com"
+        }
+    ],
     "minimum-stability": "dev",
-    "require": {}
+    "require": {},
+    "autoload": {
+        "psr-4": {}
+    }
 }
