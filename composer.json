@@ -1,0 +1,7 @@
+{
+    "name": "xani/bizineh-rud",
+    "description": "telegram SDK.",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "require": {}
+}
