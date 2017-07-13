@@ -1,6 +1,6 @@
 <?php
 
-namespace xani\bizinehRud;
+namespace XB;
 
 use Illuminate\Support\ServiceProvider;
 
