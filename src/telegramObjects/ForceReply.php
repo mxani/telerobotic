@@ -12,7 +12,7 @@ Example: A poll bot for groups runs in privacy mode (only receives commands, rep
 Guide the user through a step-by-step process. ‘Please send me your question’, ‘Cool, now let’s add the first answer option‘, ’Great. Keep adding answer options, then send /done when you‘re ready’.
 
  * The last option is definitely more attractive. And if you use ForceReply in your bot‘s questions, it will receive the user’s answers even if it only receives replies, commands and mentions — without any extra work for the user.
- * @param force_reply True Shows reply interface to the user, as if they manually selected the bot‘s message and tapped ’Reply'
+ * @param force_reply boolean Shows reply interface to the user, as if they manually selected the bot‘s message and tapped ’Reply'
  * @param selective boolean Optional. Use this parameter if you want to force reply from specific users only. Targets: 1) users that are @mentioned in the text of the Message object; 2) if the bot's message is a reply (has reply_to_message_id), sender of the original message.
  */
 
@@ -20,7 +20,7 @@ class ForceReply extends telegramObject{
 
     protected $name='ForceReply';
 
-    protected $requireds=['force_reply'=>'True'];
+    protected $requireds=['force_reply'=>'boolean'];
 
     protected $optionals=['selective'=>'boolean'];
 
