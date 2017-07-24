@@ -8,6 +8,7 @@ use XB\theory\telegramMethod;
  * @param user_id integer Unique identifier of the target user
  * @param offset integer <b>Optional</b> Sequential number of the first photo to be returned. By default, all photos are returned.
  * @param limit integer <b>Optional</b> Limits the number of photos to be retrieved. Values between 1—100 are accepted. Defaults to 100.
+ * @return UserProfilePhotos
  */
 
 
@@ -18,5 +19,7 @@ class getUserProfilePhotos extends telegramMethod{
     protected $requireds=['user_id'=>'integer'];
 
     protected $optionals=['offset'=>'integer','limit'=>'integer'];
+
+    protected $returns=['UserProfilePhotos'];
 
 }

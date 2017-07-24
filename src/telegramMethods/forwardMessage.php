@@ -9,6 +9,7 @@ use XB\theory\telegramMethod;
  * @param from_chat_id Integer or String Unique identifier for the chat where the original message was sent (or channel username in the format @channelusername)
  * @param disable_notification boolean <b>Optional</b> Sends the message silently. Users will receive a notification with no sound.
  * @param message_id integer Message identifier in the chat specified in from_chat_id
+ * @return Message
  */
 
 
@@ -19,5 +20,7 @@ class forwardMessage extends telegramMethod{
     protected $requireds=['chat_id'=>'Integer or String','from_chat_id'=>'Integer or String','message_id'=>'integer'];
 
     protected $optionals=['disable_notification'=>'boolean'];
+
+    protected $returns=['Message'];
 
 }

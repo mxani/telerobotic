@@ -12,6 +12,7 @@ This method will currently return scores for the target user, plus two of his cl
  * @param chat_id integer <b>Optional</b> Required if inline_message_id is not specified. Unique identifier for the target chat
  * @param message_id integer <b>Optional</b> Required if inline_message_id is not specified. Identifier of the sent message
  * @param inline_message_id string <b>Optional</b> Required if chat_id and message_id are not specified. Identifier of the inline message
+ * @return Array of GameHighScore
  */
 
 
@@ -22,5 +23,7 @@ class getGameHighScores extends telegramMethod{
     protected $requireds=['user_id'=>'integer'];
 
     protected $optionals=['chat_id'=>'integer','message_id'=>'integer','inline_message_id'=>'string'];
+
+    protected $returns=['Array of GameHighScore'];
 
 }

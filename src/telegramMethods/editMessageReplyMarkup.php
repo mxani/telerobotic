@@ -9,6 +9,7 @@ use XB\theory\telegramMethod;
  * @param message_id integer <b>Optional</b> Required if inline_message_id is not specified. Identifier of the sent message
  * @param inline_message_id string <b>Optional</b> Required if chat_id and message_id are not specified. Identifier of the inline message
  * @param reply_markup InlineKeyboardMarkup <b>Optional</b> A JSON-serialized object for an inline keyboard.
+ * @return Message|boolean
  */
 
 
@@ -19,5 +20,7 @@ class editMessageReplyMarkup extends telegramMethod{
     protected $requireds=[];
 
     protected $optionals=['chat_id'=>'Integer or String','message_id'=>'integer','inline_message_id'=>'string','reply_markup'=>'InlineKeyboardMarkup'];
+
+    protected $returns=['Message','boolean'];
 
 }

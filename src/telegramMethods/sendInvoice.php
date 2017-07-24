@@ -25,6 +25,7 @@ use XB\theory\telegramMethod;
  * @param disable_notification boolean <b>Optional</b> Sends the message silently. Users will receive a notification with no sound.
  * @param reply_to_message_id integer <b>Optional</b> If the message is a reply, ID of the original message
  * @param reply_markup InlineKeyboardMarkup <b>Optional</b> A JSON-serialized object for an inline keyboard. If empty, one 'Pay total price' button will be shown. If not empty, the first button must be a Pay button.
+ * @return Message
  */
 
 
@@ -35,5 +36,7 @@ class sendInvoice extends telegramMethod{
     protected $requireds=['chat_id'=>'integer','title'=>'string','description'=>'string','payload'=>'string','provider_token'=>'string','start_parameter'=>'string','currency'=>'string','prices'=>'Array of LabeledPrice'];
 
     protected $optionals=['photo_url'=>'string','photo_size'=>'integer','photo_width'=>'integer','photo_height'=>'integer','need_name'=>'boolean','need_phone_number'=>'boolean','need_email'=>'boolean','need_shipping_address'=>'boolean','is_flexible'=>'boolean','disable_notification'=>'boolean','reply_to_message_id'=>'integer','reply_markup'=>'InlineKeyboardMarkup'];
+
+    protected $returns=['Message'];
 
 }

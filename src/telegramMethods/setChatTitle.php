@@ -10,6 +10,7 @@ Note: In regular groups (non-supergroups), this method will only work if the ‘
 
  * @param chat_id Integer or String Unique identifier for the target chat or username of the target channel (in the format @channelusername)
  * @param title string New chat title, 1-255 characters
+ * @return boolean
  */
 
 
@@ -20,5 +21,7 @@ class setChatTitle extends telegramMethod{
     protected $requireds=['chat_id'=>'Integer or String','title'=>'string'];
 
     protected $optionals=[];
+
+    protected $returns=['boolean'];
 
 }

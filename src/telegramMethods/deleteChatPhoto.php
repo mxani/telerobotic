@@ -9,6 +9,7 @@ use XB\theory\telegramMethod;
 Note: In regular groups (non-supergroups), this method will only work if the ‘All Members Are Admins’ setting is off in the target group.
 
  * @param chat_id Integer or String Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+ * @return boolean
  */
 
 
@@ -19,5 +20,7 @@ class deleteChatPhoto extends telegramMethod{
     protected $requireds=['chat_id'=>'Integer or String'];
 
     protected $optionals=[];
+
+    protected $returns=['boolean'];
 
 }

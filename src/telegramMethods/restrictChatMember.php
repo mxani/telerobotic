@@ -12,6 +12,7 @@ use XB\theory\telegramMethod;
  * @param can_send_media_messages boolean <b>Optional</b> Pass True, if the user can send audios, documents, photos, videos, video notes and voice notes, implies can_send_messages
  * @param can_send_other_messages boolean <b>Optional</b> Pass True, if the user can send animations, games, stickers and use inline bots, implies can_send_media_messages
  * @param can_add_web_page_previews boolean <b>Optional</b> Pass True, if the user may add web page previews to their messages, implies can_send_media_messages
+ * @return boolean
  */
 
 
@@ -22,5 +23,7 @@ class restrictChatMember extends telegramMethod{
     protected $requireds=['chat_id'=>'Integer or String','user_id'=>'integer'];
 
     protected $optionals=['until_date'=>'integer','can_send_messages'=>'boolean','can_send_media_messages'=>'boolean','can_send_other_messages'=>'boolean','can_add_web_page_previews'=>'boolean'];
+
+    protected $returns=['boolean'];
 
 }

@@ -11,6 +11,7 @@ Note: In regular groups (non-supergroups), this method will only work if the ‘
  * @param chat_id Integer or String Unique identifier for the target group or username of the target supergroup or channel (in the format @channelusername)
  * @param user_id integer Unique identifier of the target user
  * @param until_date integer <b>Optional</b> Date when the user will be unbanned, unix time. If user is banned for more than 366 days or less than 30 seconds from the current time they are considered to be banned forever
+ * @return boolean
  */
 
 
@@ -21,5 +22,7 @@ class kickChatMember extends telegramMethod{
     protected $requireds=['chat_id'=>'Integer or String','user_id'=>'integer'];
 
     protected $optionals=['until_date'=>'integer'];
+
+    protected $returns=['boolean'];
 
 }

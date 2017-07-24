@@ -12,6 +12,7 @@ use XB\theory\telegramMethod;
  * @param parse_mode string <b>Optional</b> Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in your bot's message.
  * @param disable_web_page_preview boolean <b>Optional</b> Disables link previews for links in this message
  * @param reply_markup InlineKeyboardMarkup <b>Optional</b> A JSON-serialized object for an inline keyboard.
+ * @return Message|boolean
  */
 
 
@@ -22,5 +23,7 @@ class editMessageText extends telegramMethod{
     protected $requireds=['text'=>'string'];
 
     protected $optionals=['chat_id'=>'Integer or String','message_id'=>'integer','inline_message_id'=>'string','parse_mode'=>'string','disable_web_page_preview'=>'boolean','reply_markup'=>'InlineKeyboardMarkup'];
+
+    protected $returns=['Message','boolean'];
 
 }

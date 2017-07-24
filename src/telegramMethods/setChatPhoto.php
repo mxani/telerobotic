@@ -10,6 +10,7 @@ Note: In regular groups (non-supergroups), this method will only work if the ‘
 
  * @param chat_id Integer or String Unique identifier for the target chat or username of the target channel (in the format @channelusername)
  * @param photo InputFile New chat photo, uploaded using multipart/form-data
+ * @return boolean
  */
 
 
@@ -20,5 +21,7 @@ class setChatPhoto extends telegramMethod{
     protected $requireds=['chat_id'=>'Integer or String','photo'=>'InputFile'];
 
     protected $optionals=[];
+
+    protected $returns=['boolean'];
 
 }

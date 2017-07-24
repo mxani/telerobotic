@@ -48,6 +48,15 @@ abstract class telegramMaterial{
                 $this->error="{$this->name}: the $k property, must be $v Scalar";
                 return false;
             }
+
+            if(!$scalar && is_array($para[$k])){
+                $class='XB\telegramObjects\\'.$v;
+                if(!class_exists($class)){
+                    $this->error="{$this->name}: the $class telegram object dose not exists";
+                    return false;
+                }
+                $para[$k]=new $class($para[$k]);
+            }
             
             if(!$scalar 
             && (!$para[$k] instanceof telegramMaterial 
@@ -83,6 +92,15 @@ abstract class telegramMaterial{
             && array_search(gettype($para[$k]),explode(' or ',$v))){
                 $this->error="{$this->name}: the $k property is scalar, must be $v";
                 return false;
+            }
+
+            if(!$scalar && is_array($para[$k])){
+                $class='XB\telegramObjects\\'.$v;
+                if(!class_exists($class)){
+                    $this->error="{$this->name}: the $class telegram object dose not exists";
+                    return false;
+                }
+                $para[$k]=new $class($para[$k]);
             }
             
             if(!$scalar 

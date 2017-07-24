@@ -10,6 +10,7 @@ use XB\theory\telegramMethod;
  * @param inline_message_id string <b>Optional</b> Required if chat_id and message_id are not specified. Identifier of the inline message
  * @param caption string <b>Optional</b> New caption of the message
  * @param reply_markup InlineKeyboardMarkup <b>Optional</b> A JSON-serialized object for an inline keyboard.
+ * @return Message|boolean
  */
 
 
@@ -20,5 +21,7 @@ class editMessageCaption extends telegramMethod{
     protected $requireds=[];
 
     protected $optionals=['chat_id'=>'Integer or String','message_id'=>'integer','inline_message_id'=>'string','caption'=>'string','reply_markup'=>'InlineKeyboardMarkup'];
+
+    protected $returns=['Message','boolean'];
 
 }

@@ -12,6 +12,7 @@ Notes1. This method will not work if an outgoing webhook is set up.2. In order t
  * @param limit integer <b>Optional</b> Limits the number of updates to be retrieved. Values between 1—100 are accepted. Defaults to 100.
  * @param timeout integer <b>Optional</b> Timeout in seconds for long polling. Defaults to 0, i.e. usual short polling. Should be positive, short polling should be used for testing purposes only.
  * @param allowed_updates Array of string <b>Optional</b> List the types of updates you want your bot to receive. For example, specify [“message”, “edited_channel_post”, “callback_query”] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all updates regardless of type (default). If not specified, the previous setting will be used.Please note that this parameter doesn't affect updates created before the call to the getUpdates, so unwanted updates may be received for a short period of time.
+ * @return Array of Update
  */
 
 
@@ -22,5 +23,7 @@ class getUpdates extends telegramMethod{
     protected $requireds=[];
 
     protected $optionals=['offset'=>'integer','limit'=>'integer','timeout'=>'integer','allowed_updates'=>'Array of string'];
+
+    protected $returns=['Array of Update'];
 
 }

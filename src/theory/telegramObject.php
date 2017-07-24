@@ -9,6 +9,6 @@ abstract class telegramObject extends telegramMaterial{
     protected $allStatuses=['init','usable'];
 
     public function __toString(){
-        return json_encode( $this->values);
+        return json_encode( $this->values). $this->error;
     }
 }

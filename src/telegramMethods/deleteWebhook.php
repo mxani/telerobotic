@@ -5,6 +5,7 @@ use XB\theory\telegramMethod;
 /**
  * deleteWebhook
  * Use this method to remove webhook integration if you decide to switch back to getUpdates. Returns True on success. Requires no parameters.
+ * @return boolean
  */
 
 
@@ -15,5 +16,7 @@ class deleteWebhook extends telegramMethod{
     protected $requireds=[];
 
     protected $optionals=[];
+
+    protected $returns=['boolean'];
 
 }

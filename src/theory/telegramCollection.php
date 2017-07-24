@@ -17,10 +17,10 @@ class telegramCollection extends telegramMaterial{
             return false;
         }
 
-        if(empty($para)){
-            $this->error="{$this->name}: a Collection can not be empty";
-            return false;
-        }
+        // if(empty($para)){
+        //     $this->error="{$this->name}: a Collection can not be empty";
+        //     return false;
+        // }
 
         $types=[];
         foreach($para as $k => $v){
@@ -46,10 +46,17 @@ class telegramCollection extends telegramMaterial{
         }
         $types=array_unique($types);
         $this->name='Array of '.(count($types)==1?$types[0]:'Mix');
+        switch(count($types)){
+            case 0:$this->name= 'Empty';break;
+            case 1:$this->name='Array of '.$types[0];break;
+            default: $this->name='Array of Mix';
+        }
 
         $this->status++;
         return $this;
     }
 
-    
+    public function __toString(){
+        return json_encode( $this->values);
+    }
 }
