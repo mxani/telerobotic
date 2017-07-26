@@ -4,11 +4,12 @@ namespace XB\theory;
 
 use XB\theory\telegramMaterial;
 
-class telegramCollection extends telegramMaterial{
+class telegramCollection extends telegramMaterial
+implements \ArrayAccess{
     protected $allStatuses=['init','usable'];
     protected $name='collection';
 
-    public function __construct(array $para=[], $json=false){
+    public function __construct(array $para=[], $type='array'){
         if(!empty($this->error)){
             return false;
         }
@@ -16,11 +17,6 @@ class telegramCollection extends telegramMaterial{
             $this->error=__class__.' the name is invalid';
             return false;
         }
-
-        // if(empty($para)){
-        //     $this->error="{$this->name}: a Collection can not be empty";
-        //     return false;
-        // }
 
         $types=[];
         foreach($para as $k => $v){
@@ -37,7 +33,7 @@ class telegramCollection extends telegramMaterial{
                     return false;
                 }else{
                     $types[]=$v->type();
-                    $this->values[]=$json?"$v":$v();
+                    $this->saveByType($k,$para[$k],$type);
                 }
                 
             }else{
@@ -58,5 +54,38 @@ class telegramCollection extends telegramMaterial{
 
     public function __toString(){
         return json_encode( $this->values);
+    }
+
+    public function count(){
+        return count($this->values);
+    }
+
+    public function each(\Closure $callback){
+        foreach($this->values as $k =>$v){
+            $this->values[$k]=$callback($v,$k);
+        }
+        return $this;
+    }
+
+    public function offsetSet($offset,$value){
+        $trace = debug_backtrace();
+        trigger_error(
+            'telegram Elements properties was ReadOnly :  '.$offset.
+            ' in ' . $trace[0]['file'] .
+            ' on line ' . $trace[0]['line'],
+            E_USER_NOTICE);
+        return $value;
+    }
+
+    public function offsetExists($offset) {
+        return isset($this->values[$offset]);
+    }
+
+    public function offsetUnset($offset) {
+        unset($this->values[$offset]);
+    }
+
+    public function offsetGet($offset) {
+        return isset($this->values[$offset]) ? $this->values[$offset] : null;
     }
 }

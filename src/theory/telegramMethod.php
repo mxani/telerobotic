@@ -16,7 +16,7 @@ abstract class telegramMethod extends telegramMaterial{
             $this->error="{$this->name}: returns value don't set".json_last_error_msg();
             return false;
         }
-        return parent::__construct($para,true);
+        return parent::__construct($para,'json');
     }
 
     public $raw,$result;
@@ -76,16 +76,16 @@ abstract class telegramMethod extends telegramMaterial{
                 $elems=[];
                 $class='XB\telegramObjects\\'.str_ireplace('array of ','',$this->returns[0]);
                 foreach($data['result'] as $elm){
-                    $elems[]=new $class($elm);
+                    $elems[]=new $class($elm,'object');
                 }
-                return $this->result= new telegramCollection($elems);
+                return $this->result= new telegramCollection($elems,'object');
             }else{// associcative
                 $class='XB\telegramObjects\\'.$this->returns[0];
-                return $this->result= new $class($data['result']);
+                return $this->result= new $class($data['result'],'object');
             }
         }
 
-        return $this->raw;
+        // return $this->raw;
         $this->error="{$this->name}: telegram's bot response, ronge data type returend ";
         return false;
     }

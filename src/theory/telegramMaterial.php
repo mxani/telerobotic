@@ -28,7 +28,7 @@ abstract class telegramMaterial{
 
     protected $values=[];
 
-    public function __construct(array $para=[],$json=false){
+    public function __construct(array $para=[],$type='array'){
         if(!empty($this->error)){
             return false;
         }
@@ -50,12 +50,26 @@ abstract class telegramMaterial{
             }
 
             if(!$scalar && is_array($para[$k])){
-                $class='XB\telegramObjects\\'.$v;
-                if(!class_exists($class)){
-                    $this->error="{$this->name}: the $class telegram object dose not exists";
-                    return false;
+                if($para[$k]===array_values($para[$k])){
+                    if(stristr($v,'array of ')===false){
+                        $this->error="{$this->name}: unexpected collection (array) ";
+                        return false;
+                    }
+
+                    $elems=[];
+                    $class='XB\telegramObjects\\'.str_ireplace('array of ','',$v);
+                    foreach($data['result'] as $elm){
+                        $elems[]=new $class($elm,$type);
+                    }
+                    $para[$k]= new telegramCollection($elems,$type);
+                }else{
+                    $class='XB\telegramObjects\\'.$v;
+                    if(!class_exists($class)){
+                        $this->error="{$this->name}: the $class telegram object dose not exists";
+                        return false;
+                    }
+                    $para[$k]=new $class($para[$k],$type);
                 }
-                $para[$k]=new $class($para[$k]);
             }
             
             if(!$scalar 
@@ -78,7 +92,7 @@ abstract class telegramMaterial{
                     $this->error="{$this->name}: the $k property not initialized";
                     return false;
                 }else{
-                    $this->values[$k]=$json?"$para[$k]":$para[$k]();
+                    $this->saveByType($k,$para[$k],$type);
                 }
             }
         }
@@ -95,12 +109,26 @@ abstract class telegramMaterial{
             }
 
             if(!$scalar && is_array($para[$k])){
-                $class='XB\telegramObjects\\'.$v;
-                if(!class_exists($class)){
-                    $this->error="{$this->name}: the $class telegram object dose not exists";
-                    return false;
+                if($para[$k]===array_values($para[$k])){
+                    if(stristr($v,'array of ')===false){
+                        $this->error="{$this->name}: unexpected collection (array) ";
+                        return false;
+                    }
+
+                    $elems=[];
+                    $class='XB\telegramObjects\\'.str_ireplace('array of ','',$v);
+                    foreach($data['result'] as $elm){
+                        $elems[]=new $class($elm,$type);
+                    }
+                    $para[$k]= new telegramCollection($elems,$type);
+                }else{
+                    $class='XB\telegramObjects\\'.$v;
+                    if(!class_exists($class)){
+                        $this->error="{$this->name}: the $class telegram object dose not exists";
+                        return false;
+                    }
+                    $para[$k]=new $class($para[$k],$type);
                 }
-                $para[$k]=new $class($para[$k]);
             }
             
             if(!$scalar 
@@ -123,7 +151,7 @@ abstract class telegramMaterial{
                     $this->error="{$this->name}: the $k property not initialized";
                     return false;
                 }else{
-                    $this->values[$k]=$json?"$para[$k]":$para[$k]();
+                    $this->saveByType($k,$para[$k],$type);
                 }
             }
         }
@@ -171,5 +199,14 @@ abstract class telegramMaterial{
             ' on line ' . $trace[0]['line'],
             E_USER_NOTICE);
         return $value;
+    }
+
+    protected function saveByType($key,&$value,$type){
+        switch($type){
+            case 'json': $this->values[$key]="$value";break;
+            case 'object': $this->values[$key]=$value;break;
+            case 'array': 
+            default :$this->values[$key]=$value();
+        }
     }
 }
