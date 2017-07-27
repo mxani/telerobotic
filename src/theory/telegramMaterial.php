@@ -201,6 +201,14 @@ abstract class telegramMaterial{
         return $value;
     }
 
+    public function __isset($name){
+        return isset($this->values[$name]);
+    }
+
+    public function __debugInfo() {
+        return $this->values;
+    }
+
     protected function saveByType($key,&$value,$type){
         switch($type){
             case 'json': $this->values[$key]="$value";break;
