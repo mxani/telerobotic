@@ -17,6 +17,8 @@ class bizinehRudServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/views'=>base_path('resources/views/xani/bizinehRud'),
             __DIR__.'/config.php'=>base_path('config/XBtelegram.php'),
+            __DIR__.'/telegram.php'=>base_path('routes/telegram.php'),
+            __DIR__.'/Magazines'=>base_path('app/Magazines'),
         ]);
     }
 
