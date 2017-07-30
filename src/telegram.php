@@ -1,5 +1,5 @@
 <?php
-
+use XB\theory\Shoot;
 
 Shoot::trigger(function($u){
     return $u->message->text=='hi test';

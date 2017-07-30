@@ -58,7 +58,7 @@ abstract class telegramMaterial{
 
                     $elems=[];
                     $class='XB\telegramObjects\\'.str_ireplace('array of ','',$v);
-                    foreach($data['result'] as $elm){
+                    foreach($para[$k] as $elm){
                         $elems[]=new $class($elm,$type);
                     }
                     $para[$k]= new telegramCollection($elems,$type);
@@ -117,7 +117,7 @@ abstract class telegramMaterial{
 
                     $elems=[];
                     $class='XB\telegramObjects\\'.str_ireplace('array of ','',$v);
-                    foreach($data['result'] as $elm){
+                    foreach($para[$k] as $elm){
                         $elems[]=new $class($elm,$type);
                     }
                     $para[$k]= new telegramCollection($elems,$type);
