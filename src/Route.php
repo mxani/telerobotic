@@ -5,7 +5,7 @@ use XB\theory\Shoot;
 use XB\telegramObjects\Update;
 // use XB\telegramMethods\getUpdates;
 
-Route::get('telegram/webhook',function(){
+Route::post('telegram/webhook',function(){
 
     $data=json_decode(file_get_contents('php://input'),true);
 
