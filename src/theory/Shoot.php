@@ -50,11 +50,10 @@ class Shoot{
     public static function fire(){
         foreach(self::$equped as $k => $v){
             if($v instanceof \Closure){
-                self::$equped[$k]=$v(self::$update,self::$share);
+                $v(self::$update,self::$share);
             }else{
                 extract($v);
                 $magazine=new $magazine;
-                self::$equped[$k]=
                 $magazine->$cartridge(self::$update,self::$share);
             }
         }
