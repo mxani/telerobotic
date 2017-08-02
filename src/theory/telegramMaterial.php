@@ -38,7 +38,7 @@ abstract class telegramMaterial{
         }
 
         foreach($this->requireds as $k => $v){
-            if(empty($para[$k])){
+            if(!isset($para[$k])){
                 $this->error="{$this->name}: the $k property is requiered";
                 return false;
             }
@@ -98,7 +98,7 @@ abstract class telegramMaterial{
         }
 
         foreach($this->optionals as $k => $v){
-            if(empty($para[$k])){
+            if(!isset($para[$k])){
                 continue;
             }
 
