@@ -5,25 +5,15 @@ namespace XB\theory;
 use XB\telegramObjects\Update;
 
 class Shoot{
-    public function __construct($trig,$fire){
-        
-        $share=[];
-        if($trig(self::$update,$share)){
-            if($fire instanceof \Closure){
-                $this->result= $fire(self::$update,$share);
-            }else{
-                $this->result= 'else';
-            }
-        }
+    public function __construct(Update $update){
+        $this->update=$update;
     }
 
-    public static $update;
+    private $update,$result;
 
-    private Static $equped=[],$share=[];
+    private $equped=[],$share=[];
 
-    public static $result;
-
-    public static function trigger($trig,$fire){
+    public function trigger($trig,$fire){
         if(is_string($fire)){
             $fire="App\\Magazines\\$fire@";
             list($magazine,$cartridge)=explode('@',$fire);
@@ -42,24 +32,25 @@ class Shoot{
 
         ///< other validation of $trig and $fire
 
-        if($trig(self::$update,self::$share)){
-            self::$equped[]= $fire;
+        if($trig($this->update,$this->share)){
+            $this->equped[]= $fire;
         }
     }
 
-    public static function fire(){
-        foreach(self::$equped as $k => $v){
+    public function fire(){
+        foreach($this->equped as $k => $v){
             if($v instanceof \Closure){
-                $v(self::$update,self::$share);
+                $v($this->update,$this->share);
             }else{
                 extract($v);
                 $magazine=new $magazine;
-                $magazine->$cartridge(self::$update,self::$share);
+                // $this->equped[$k]=
+                $magazine->$cartridge($this->update,$this->share);
             }
         }
     }
 
-    public static function load(){
-        require_once(base_path('routes/telegram.php'));
+    public function load(){
+        require(base_path('routes/telegram.php'));
     }
 }

@@ -17,6 +17,7 @@ class bizinehRudServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/config.php'=>base_path('config/XBtelegram.php'),
             __DIR__.'/telegram.php'=>base_path('routes/telegram.php'),
+            __DIR__.'/public.php'=>base_path('public/telegram.php'),
             __DIR__.'/Magazines'=>base_path('app/Magazines'),
         ]);
     }
@@ -28,7 +29,5 @@ class bizinehRudServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        require_once __DIR__.'/Route.php';
-        // $this->app->make(xani\bizinehRud\telegramCtrl::class);
     }
 }

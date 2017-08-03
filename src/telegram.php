@@ -1,7 +1,7 @@
 <?php
 use XB\theory\Shoot;
 
-Shoot::trigger(function($u){
+$this->trigger(function($u){
     return $u->message->text=='hi test';
 },function($u){
     $send=new XB\telegramMethods\sendMessage([
@@ -12,4 +12,4 @@ Shoot::trigger(function($u){
     $send() or print 'error:'.$send->getError();
 });
 
-Shoot::trigger(function($u){return true;},'sayHello');
+$this->trigger(function($u){return true;},'sayHello@test')
