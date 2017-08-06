@@ -21,7 +21,7 @@ abstract class telegramMethod extends telegramMaterial{
 
     public $raw,$result;
 
-    public function __invoke(){
+    public function __invoke($justRaw=false){
         if(!is_null($this->error)){
             return false;
         }
@@ -35,6 +35,9 @@ abstract class telegramMethod extends telegramMaterial{
             ['form_params' =>$this->values]
         );
         $this->raw= $response->getBody()->getContents();
+        if($justRaw){
+            return $this->raw;
+        }
 
         $data=json_decode($this->raw,true);
         if(json_last_error()){

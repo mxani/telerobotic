@@ -1,6 +1,6 @@
 <?php
 
-namespace XB\Commands;
+namespace XB;
 
 use Illuminate\Console\Command;
 use XB\theory\Shoot;
@@ -18,18 +18,18 @@ class telegramService extends Command
     public function handle()
     {
         do{
-            $files=\Storage::allFiles('updates');
+            $files=\File::allFiles('storage/bizinehRud/updates');
             foreach($files as $file){
 
-                if(\Storage::size($file)>5000){
-                    \Storage::delete($file);
+                if(\File::size($file)>5000){
+                    \File::delete($file);
                     continue;
                 }
 
-                $data=\Storage::get($file);
+                $data=\File::get($file);
                 $json=json_decode($data,true);
                 if(json_last_error()){
-                    \Storage::delete($file);
+                    \File::delete($file);
                     continue;
                 }
 
@@ -42,7 +42,7 @@ class telegramService extends Command
 
                 $shoot->fire();
 
-                \Storage::delete($file);
+                \File::move($file,str_replace('updates','olds',$file));
 
                 // Shoot::$result;
             }
