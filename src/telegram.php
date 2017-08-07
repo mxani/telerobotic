@@ -12,4 +12,4 @@ $this->trigger(function($u){
     $send() or print 'error:'.$send->getError();
 });
 
-$this->trigger(function($u){return true;},'sayHello@test')
+$this->trigger(function($u){return true;},'sayHello@test');
