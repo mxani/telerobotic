@@ -4,6 +4,7 @@ namespace XB\theory;
 
 use XB\theory\telegramMaterial;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 
 
 abstract class telegramMethod extends telegramMaterial{
@@ -35,9 +36,13 @@ abstract class telegramMethod extends telegramMaterial{
             	config('XBtelegram.bot-url').config('XBtelegram.bot-token').'/'.$this->name, 
             	['form_params' =>$this->values]
             );
-	}catch(Exception $e){
-	}
-        $this->raw= $response->getBody()->getContents();
+	    $this->raw= $response->getBody()->getContents();
+	} catch (ClientException $e) {
+ //   echo \Psr7\str($e->getRequest());
+ //   echo \Psr7\str($e->getResponse());
+	$this->raw="{}";
+	return false;
+}
         if($justRaw){
             return $this->raw;
         }
