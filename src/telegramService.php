@@ -21,7 +21,7 @@ class telegramService extends Command
             $files=\File::allFiles('storage/bizinehRud/updates');
             foreach($files as $file){
 
-                if(\File::size($file)>5000){
+                if(\File::size($file)>20000){
                     \File::delete($file);
                     continue;
                 }
