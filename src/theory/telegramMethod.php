@@ -29,11 +29,14 @@ abstract class telegramMethod extends telegramMaterial{
         // return $this->values;
 
         $client = new Client();
-        $response=$client->request(
-            'POST', 
-            config('XBtelegram.bot-url').config('XBtelegram.bot-token').'/'.$this->name, 
-            ['form_params' =>$this->values]
-        );
+	try{
+            $response=$client->request(
+            	'POST', 
+            	config('XBtelegram.bot-url').config('XBtelegram.bot-token').'/'.$this->name, 
+            	['form_params' =>$this->values]
+            );
+	}catch(Exception $e){
+	}
         $this->raw= $response->getBody()->getContents();
         if($justRaw){
             return $this->raw;
