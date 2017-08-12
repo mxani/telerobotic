@@ -35,9 +35,9 @@ class telegramFetcher extends Command
             }
             
             foreach($data['result'] as $v){
-                if(!\File::exists('storage/bizinehRud/olds/'.$v['update_id'])&&
-                !\File::exists('storage/bizinehRud/updates/'.$v['update_id'])){
-                    \File::put('storage/bizinehRud/updates/'.$v['update_id'],json_encode($v));
+                if(!\File::exists('storage/bizinehRud/olds/'.$v['update_id'].'.json')&&
+                !\File::exists('storage/bizinehRud/updates/'.$v['update_id'].'.json')){
+                    \File::put('storage/bizinehRud/updates/'.$v['update_id'].'.json',json_encode($v));
                     $this->info("new update fetched ({$v['update_id']})");
                 }
             }
