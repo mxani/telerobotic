@@ -9,9 +9,9 @@ class Shoot{
         $this->update=$update;
     }
 
-    private $update,$result;
+    private $update,$result,$share=[];
 
-    private $equped=[],$share=[];
+    private $equped=[],$default;
 
     public function trigger($trig,$fire){
         if(is_string($fire)){
@@ -31,22 +31,34 @@ class Shoot{
         }
 
         ///< other validation of $trig and $fire
-
-        if($trig($this->update,$this->share)){
+        if(is_string($trig)){
+            switch($trig){
+                case 'default':$this->default= $fire;break;
+            }
+            return;
+        }
+        if($trig instanceof \Closure && $trig($this->update,$this->share)){
             $this->equped[]= $fire;
         }
     }
 
     public function fire(){
+        if(empty($this->equped) ){
+            $this->flint($this->default);
+            return;
+        }
         foreach($this->equped as $k => $v){
-            if($v instanceof \Closure){
-                $v($this->update,$this->share);
-            }else{
-                extract($v);
-                $magazine=new $magazine;
-                // $this->equped[$k]=
-                $magazine->$cartridge($this->update,$this->share);
-            }
+            $this->flint($v);
+        }
+    }
+
+    public function flint($powder){
+        if($powder instanceof \Closure){
+            return $powder($this->update,$this->share);
+        }else{
+            extract($powder);
+            $magazine=new $magazine;
+            return $magazine->$cartridge($this->update,$this->share);
         }
     }
 
