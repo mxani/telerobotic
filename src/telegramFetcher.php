@@ -8,7 +8,7 @@ use XB\telegramMethods\getUpdates;
 
 class telegramFetcher extends Command
 {
-    protected $signature = 'telegram:fetcher {--serve} {--last} {--delay=3}';
+    protected $signature = 'bot:fetcher {--serve} {--delay=3}';
     protected $description = 'fetching new update by getUpdate';
 
     public function __construct()
@@ -19,7 +19,24 @@ class telegramFetcher extends Command
     public function handle()
     {
         (new deleteWebhook())->call();
-        $last=$this->option('last')?-1:1;
+        define('OLDS','storage/bizinehRud/olds/');
+        define('UPDATES','storage/bizinehRud/updates/');
+        $list=array_merge(
+            \File::files(OLDS),
+            \File::files(UPDATES)
+        );
+        if(count($list)){
+            $list=array_filter($list,function($item){
+                return strstr($item,'json');
+            });
+            $list=array_map(function($item){
+                return str_replace([UPDATES.'/',OLDS.'/','.json'],'',$item);
+            }, $list);
+            // sort($list);
+            $last=end($list);
+        }else{
+            $last=1;
+        }
         do{
             $send=new getUpdates(['offset'=>$last]);
             $send();
@@ -35,10 +52,11 @@ class telegramFetcher extends Command
             }
             
             foreach($data['result'] as $v){
-                if(!\File::exists('storage/bizinehRud/olds/'.$v['update_id'].'.json')&&
-                !\File::exists('storage/bizinehRud/updates/'.$v['update_id'].'.json')){
-                    \File::put('storage/bizinehRud/updates/'.$v['update_id'].'.json',json_encode($v));
+                if(!\File::exists(OLDS.$v['update_id'].'.json')&&
+                !\File::exists(UPDATES .$v['update_id'].'.json')){
+                    \File::put(UPDATES .$v['update_id'].'.json',json_encode($v));
                     $this->info("new update fetched ({$v['update_id']})");
+                    $last=$v['update_id'];
                 }
             }
             if($this->option('serve')){
