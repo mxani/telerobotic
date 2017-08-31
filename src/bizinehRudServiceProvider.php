@@ -21,7 +21,11 @@ class bizinehRudServiceProvider extends ServiceProvider
             __DIR__.'/Magazines'=>base_path('app/Magazines'),
             __DIR__.'/storage'=>base_path('storage/bizinehRud'),
         ]);
-        $this->commands(['XB\telegramService','XB\telegramFetcher']);
+        $this->commands([
+            'XB\telegramService',
+            'XB\telegramFetcher',
+            'XB\telegramProccess',
+        ]);
     }
 
     /**

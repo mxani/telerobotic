@@ -25,17 +25,17 @@ class telegramFetcher extends Command
             \File::files(OLDS),
             \File::files(UPDATES)
         );
-        if(count($list)){
-            $list=array_filter($list,function($item){
-                return strstr($item,'json');
-            });
-            $list=array_map(function($item){
-                return str_replace([UPDATES.'/',OLDS.'/','.json'],'',$item);
-            }, $list);
-            // sort($list);
-            $last=end($list);
-        }else{
-            $last=1;
+        $updates=[];
+        foreach($list as $v){
+            $v=substr($v,strrpos($v,'/')+1);
+            if(preg_match("/^\d+(?=\.json)/", $v, $v)){
+                $updates[]=$v[0];
+            }
+        }
+        $last=-1;
+        if(count($updates)){
+            sort($updates);
+            $last=end($updates);
         }
         do{
             $send=new getUpdates(['offset'=>$last]);
